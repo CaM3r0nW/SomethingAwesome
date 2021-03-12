@@ -26,14 +26,17 @@ def caesar_encrpt(msg, key):
         #Determins which alphabet to use
         if letter.isupper() == True:
             alphabet = string.ascii_uppercase
-        else:
+        elif letter.islower() == True:
             alphabet = string.ascii_lowercase
+        else:
+            encrypted += letter
+            continue
 
         letter_index = alphabet.index(letter)
         letter_index = letter_index+key
 
         letter_index = shift_key(letter_index)
-        print(letter_index)
+
         encrypted += alphabet[letter_index]
 
     return encrypted
@@ -63,9 +66,11 @@ def caesar_decrypt(msg, key):
         #Determins which alphabet to use
         if letter.isupper() == True:
             alphabet = string.ascii_uppercase
-        else:
+        elif letter.islower() == True:
             alphabet = string.ascii_lowercase
-
+        else:
+            decrypted += letter
+            continue
         letter_index = alphabet.index(letter)
         letter_index = letter_index-key
 
