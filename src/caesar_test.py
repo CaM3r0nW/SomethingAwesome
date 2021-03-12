@@ -3,5 +3,5 @@ import caesar as e
 
 
 #Tests what happens with invalid type input
-def invalid_test():
+def test_invalid():
     assert e.caesar_encrpt('cat',26) == 'cat'
