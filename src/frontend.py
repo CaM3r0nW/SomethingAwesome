@@ -9,11 +9,12 @@ while True:
         if msg == '':
             break
 
-        encrypted = e.encrypt(msg)
+        encrypted = e.caesar_encrpt(msg)
         print(f"This is the message encrypted: {encrypted}")
 
-        decrypted = e.decrypt(msg)
+        decrypted = e.caesar_decrypt(msg)
 
+        print(f"This is the message encrypted: {decrypted}")
         raise Exception
     except:
         msg = input("Message to be sent: ")
