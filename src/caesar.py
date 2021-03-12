@@ -11,9 +11,9 @@ def caesar_encrpt(msg, key):
     Ensures the given data is the correct type
     """
     if isinstance(msg, str) == False:
-        raise Exception("1st argument must be string")
+        raise TypeError("1st argument must be string")
     if isinstance(key, int) == False:
-        raise Exception("2nd argument must be int")
+        raise TypeError("2nd argument must be int")
 
     """
     ---------------------------------
@@ -32,16 +32,8 @@ def caesar_encrpt(msg, key):
         letter_index = alphabet.index(letter)
         letter_index = letter_index+key
 
-        #If the key is over 25 ('z'), minus 26
-        #If the key is under 0 ('a'), plus 26
-        while True:
-            if letter_index > 26:
-                letter_index -= 26
-            elif letter_index < 0:
-                letter_index += 26
-            else:
-                break
-
+        letter_index = shift_key(letter_index)
+        print(letter_index)
         encrypted += alphabet[letter_index]
 
     return encrypted
@@ -77,16 +69,25 @@ def caesar_decrypt(msg, key):
         letter_index = alphabet.index(letter)
         letter_index = letter_index-key
 
-        #If the key is over 25 ('z'), minus 26
-        #If the key is under 0 ('a'), plus 26
-        while True:
-            if letter_index > 26:
-                letter_index -= 26
-            elif letter_index < 0:
-                letter_index += 26
-            else:
-                break
+        letter_index = shift_key(letter_index)
 
         decrypted += alphabet[letter_index]
 
     return decrypted
+
+"""
+Given the key, ensures it is between and including 0-25
+Given an int
+Returns an int
+"""
+def shift_key(key):
+    #If the key is over 25 ('z'), minus 26
+    #If the key is under 0 ('a'), plus 26
+    while True:
+        if key > 25:
+            key -= 26
+        elif key < 0:
+            key += 26
+        else:
+            break
+    return key
