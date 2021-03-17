@@ -92,6 +92,7 @@ def shift(msg, key):
 Given a cypher, returns a list of all possiable decypher's.
 This is determined by if atleast one word in the decypher
 is in the list english_words_set.
+If no possibilites are found then return the entire list of all decyphers.
 Given a string
 Returns a list
 """
@@ -107,10 +108,13 @@ def caesar_brute(cypher):
     """
     punctuation = ''',.?"'()<>{}[] \n\r_-'''
     possibilites = []
-
+    all_possibilites = []
     #Loop through all 26 possibilites and see if any words in it are English
     for key in range(26):
         decypher = shift(cypher, -key)
+
+        all_possibilites.append(decypher)
+
         #Will only work for words seperated by a space
         words = []
         for symbol in punctuation:
@@ -118,13 +122,13 @@ def caesar_brute(cypher):
         #If decypher can not be split, add the whole decypher into word
         if words == []:
             words.append(decypher)
-        print(words)
         #Loops through each word to find if any are 'English'
         for word in words:
-            print(word)
             if word.lower() in english_words_alpha_set:
                 possibilites.append(decypher)
                 break
 
-
+    if possibilites == []:
+        return all_possibilites
+    
     return possibilites
