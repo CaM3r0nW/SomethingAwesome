@@ -1,5 +1,5 @@
 import pytest
-from caesar import caesar_encrpt, caesar_decrypt
+from caesar import caesar_encrpt, caesar_decrypt, caesar_brute
 
 
 #Tests what happens with invalid input
@@ -12,6 +12,8 @@ def test_invalid():
         assert caesar_encrpt(2,2)
     with pytest.raises(TypeError):
         assert caesar_encrpt('','')
+    with pytest.raises(TypeError):
+        assert caesar_brute(52)
 
 #Tests limits of shift
 def test_shifting():
@@ -33,3 +35,8 @@ def test_decrypt():
     cypher = caesar_encrpt('A space', 26)
     assert cypher == 'A space'
     assert caesar_decrypt(cypher, 26)
+
+def test_brute():
+    assert 'How did you know?' in caesar_brute(caesar_encrpt('How did you know?', 2))
+    assert 'Single_Word' in caesar_brute(caesar_encrpt('Single_Word', 7))
+    assert 'Bat' in caesar_brute(caesar_encrpt('Bat', 21))
