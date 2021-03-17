@@ -96,19 +96,35 @@ Given a string
 Returns a list
 """
 def caesar_brute(cypher):
+    """
+    Ensures the given data is the correct type
+    """
+    if isinstance(cypher, str) == False:
+        raise TypeError("Argument must be string")
+
+    """
+    ---------------------------------
+    """
+    punctuation = ''',.?"'()<>{}[] \n\r_-'''
     possibilites = []
 
     #Loop through all 26 possibilites and see if any words in it are English
     for key in range(26):
         decypher = shift(cypher, -key)
         #Will only work for words seperated by a space
-        words = decypher.split()
+        words = []
+        for symbol in punctuation:
+            words += decypher.split(symbol)
         #If decypher can not be split, add the whole decypher into word
         if words == []:
             words.append(decypher)
+        print(words)
         #Loops through each word to find if any are 'English'
         for word in words:
+            print(word)
             if word.lower() in english_words_alpha_set:
                 possibilites.append(decypher)
                 break
+
+
     return possibilites
