@@ -40,3 +40,4 @@ def test_brute():
     assert 'Bat' in caesar_brute(caesar_encrpt('Bat', 21))
     assert 'How did you know?' in caesar_brute(caesar_encrpt('How did you know?', 2))
     assert 'Single_Word' in caesar_brute(caesar_encrpt('Single_Word', 7))
+    assert 'AHumanCanReadThis,CanYou?' in caesar_brute(caesar_encrpt('AHumanCanReadThis,CanYou?', 76))
