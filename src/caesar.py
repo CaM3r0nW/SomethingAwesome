@@ -1,5 +1,5 @@
 import string
-from english_words import english_words_set
+from english_words import english_words_alpha_set
 """
 Given a message it will shift each letter in the message by a given amount.
 The amount shifted is determined by the key
@@ -103,9 +103,12 @@ def caesar_brute(cypher):
         decypher = shift(cypher, -key)
         #Will only work for words seperated by a space
         words = decypher.split()
+        #If decypher can not be split, add the whole decypher into word
+        if words == []:
+            words.append(decypher)
         #Loops through each word to find if any are 'English'
         for word in words:
-            if word in english_words_set:
+            if word.lower() in english_words_alpha_set:
                 possibilites.append(decypher)
                 break
     return possibilites
