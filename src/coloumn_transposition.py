@@ -5,8 +5,13 @@ def columnar_transposition_encrypt(toEncrypt, key):
     #Find the length of the key
     keyLength = len(key)
     #Break to_encrypt into a number of lists equal in length to key
-
-    #Associate each coloumn with a letter
+    coloumns = string_to_2d_array(toEncrypt, keyLength)
+    #Associate letter of key with index, sort alphabetically
+    keyList = []
+    for i in range(keyLength):
+        keyList.append([key[i],i])
+    sortedKeyList = sort_keyList(keyList)
+    print(keyList.sorted())
     #Sort letters alphabetically, the return each coloumn together as one string
     return toEncrypt
 
@@ -23,4 +28,11 @@ def string_to_2d_array(toEncrypt, k_len):
     toReturn = [toEncrypt[i:i+k_len] for i in range(0, len(toEncrypt), k_len)]
     return toReturn
 
-print(string_to_2d_array('Hello I am Cameron how are you?', 3))
+def sort_keyList(keyList):
+    """
+    Return a sorted keyList with given a keyList.
+    Returns a list
+    """
+    return keyList
+
+print(columnar_transposition_encrypt('HelloIamCameronhowareyou?', 'Apples'))
