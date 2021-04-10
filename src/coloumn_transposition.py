@@ -4,16 +4,24 @@ from english_words import english_words_alpha_set
 def columnar_transposition_encrypt(toEncrypt, key):
     #Find the length of the key
     keyLength = len(key)
+
     #Break to_encrypt into a number of lists equal in length to key
     coloumns = string_to_2d_array(toEncrypt, keyLength)
-    #Associate letter of key with index, sort alphabetically
+
+    #Associate letter of key with index
     keyList = []
     for i in range(keyLength):
         keyList.append([key[i],i])
+
+    #Sort alphabetically (Case is unimportant)
     sortedKeyList = sort_keyList(keyList)
-    print(keyList.sorted())
-    #Sort letters alphabetically, the return each coloumn together as one string
-    return toEncrypt
+
+    #Create a string based on the coloumn number
+    returnStr = ''
+    for item in sortedKeyList:
+        for line in coloumns:
+            returnStr += line[item[1]]
+    return returnStr
 
 def columnar_transposition_decrypt(encrypted, key):
     return encrypted
@@ -30,9 +38,30 @@ def string_to_2d_array(toEncrypt, k_len):
 
 def sort_keyList(keyList):
     """
-    Return a sorted keyList with given a keyList.
+    Return a sorted alphabetically (not caring for case) keyList when given a keyList.
     Returns a list
     """
-    return keyList
+    sortedKeyList = []
+    for item in keyList:
+        #If the sortedKeyList is empty, append the first item
+        if len(sortedKeyList) == 0:
+            sortedKeyList.append(item)
+            continue
 
-print(columnar_transposition_encrypt('HelloIamCameronhowareyou?', 'Apples'))
+        #Finds the length of sortedKeyList, which is used later to see if anything was added
+        old_len_sortedKeyList = len(sortedKeyList)
+
+        #For each entry in the sorted list, compare with item
+        for sorted in sortedKeyList:
+            #Compares the letter component of the item and sorted in lowercase
+            if ord(item[0].lower()) < ord(sorted[0].lower()):
+                sortedKeyList.insert(sortedKeyList.index(sorted), item)
+                break
+
+        #If these values equals, it means that item is the largest, so append to end
+        if len(sortedKeyList) == old_len_sortedKeyList:
+            sortedKeyList.append(item)
+
+    return sortedKeyList
+
+print(columnar_transposition_encrypt('HelloIamCameronhowareyouImquithankyou?', 'SuperAaSEcUresource'))
