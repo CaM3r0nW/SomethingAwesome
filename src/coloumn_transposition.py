@@ -8,12 +8,20 @@ def columnar_transposition_encrypt(toEncrypt, key):
     #Break to_encrypt into a number of lists equal in length to key
     coloumns = string_to_2d_array(toEncrypt, keyLength)
 
+    #Case where final entry isn't full
+    for i in range(len(coloumns[-1]),keyLength):
+        """
+        Implement function that gives a psedo-random char
+        """
+        addedChar = 'i'
+        coloumns[-1] += addedChar
+
     #Associate letter of key with index
     keyList = []
     for i in range(keyLength):
         keyList.append([key[i],i])
 
-    #Sort alphabetically (Case is unimportant)
+    #Sort keyList alphabetically (Case is unimportant)
     sortedKeyList = sort_keyList(keyList)
 
     #Create a string based on the coloumn number
@@ -21,6 +29,8 @@ def columnar_transposition_encrypt(toEncrypt, key):
     for item in sortedKeyList:
         for line in coloumns:
             returnStr += line[item[1]]
+
+    print(coloumns)
     return returnStr
 
 def columnar_transposition_decrypt(encrypted, key):
@@ -64,4 +74,4 @@ def sort_keyList(keyList):
 
     return sortedKeyList
 
-print(columnar_transposition_encrypt('HelloIamCameronhowareyouImquithankyou?', 'SuperAaSEcUresource'))
+print(columnar_transposition_encrypt('HelloIamCameronhowareyouImquithaasdnkayou?', 'SuperAaSEesource'))
