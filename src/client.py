@@ -21,21 +21,38 @@ while True:
             with open("data.json", "w") as outfile:
                 dump(data, outfile)
 
-        #Encrypts with ceaser cypher
+        #Encrypts with ceaser cypher, needs key
         elif commandList[0] == 'CE':
-            encrypted = caesar_encrpt(msg[3:-1], int(commandList[-1]))
+            key = int(commandList[-1])
+            commandList.remove(commandList[-1])
+            commandList.remove(commandList[0])
+            msg = ' '.join(commandList)
+            encrypted = caesar_encrpt(msg, key)
             data['channel'] = encrypted
             with open("data.json", "w") as outfile:
                 dump(data, outfile)
+
+        #Decrypts with ceaser cypher, needs key
+        elif commandList[0] == 'CD':
+            decrypted = caesar_decrypt(data['channel'], int(commandList[1]))
+            print(f"Msg: {decrypted}")
 
         #Brute force using ceaser whatever is in channel, returns decrypted and key
         elif commandList[0] == 'CB':
             results = caesar_brute(data['channel'])
             print(f"Possibilites: {results}")
 
-        elif commandList[0] == 'CB':
-            results = caesar_brute(data['channel'])
-            print(f"Possibilites: {results}")
+        #Encrypt with columnar transposition, sent message must be block, follow by key
+        elif commandList[0] == 'TE':
+            encrypted = columnar_transposition_encrypt(commandList[1], commandList[2])
+            data['channel'] = encrypted
+            with open("data.json", "w") as outfile:
+                dump(data, outfile)
+
+        #Decrypt with columnar transposition, needs key
+        elif commandList[0] == 'TD':
+            decrypted = columnar_transposition_decrypt(data['channel'], commandList[1])
+            print(f"Msg: {decrypted}")
 
         #Prints whatever is in channel
         elif commandList[0] == 'SC':
