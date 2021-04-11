@@ -113,7 +113,7 @@ def caesar_brute(cypher):
     for key in range(26):
         decypher = shift(cypher, -key)
 
-        all_possibilites.append(decypher)
+        all_possibilites.append([decypher, key])
 
         #Will only work for words seperated by a space
         words = []
@@ -121,14 +121,14 @@ def caesar_brute(cypher):
             words += decypher.split(symbol)
         #If decypher can not be split, add the whole decypher into word
         if words == []:
-            words.append(decypher)
+            words.append([decypher, key])
         #Loops through each word to find if any are 'English'
         for word in words:
             if word.lower() in english_words_alpha_set:
-                possibilites.append(decypher)
+                possibilites.append([decypher, key])
                 break
 
     if possibilites == []:
         return all_possibilites
-    
+
     return possibilites
