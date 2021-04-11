@@ -34,7 +34,11 @@ def test_decrypt():
 
     cypher = caesar_encrpt('A space', 26)
     assert cypher == 'A space'
-    assert caesar_decrypt(cypher, 26)
+    assert caesar_decrypt(cypher, 26) == 'A space'
+
+    cypher = caesar_encrpt('Hello', 4)
+    assert cypher == 'Lipps'
+    assert caesar_decrypt(cypher, 4) == 'Hello'
 
 def test_brute():
     assert 'Bat' in caesar_brute(caesar_encrpt('Bat', 21))
